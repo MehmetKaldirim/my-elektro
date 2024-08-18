@@ -5,6 +5,7 @@ import logo from "../assets/elektro-sembol.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -28,8 +29,27 @@ const Header = () => {
     };
   }, [isOpen]);
 
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const headerOpacity = scrollY > 150 ? 1 : 0.5 + scrollY / 300;
+
   return (
-    <header className="bg-white text-black p-4 flex items-center justify-between relative z-20">
+    <header
+      className="fixed top-0 left-0 w-full p-4 flex items-center justify-between z-50 transition-opacity duration-300"
+      style={{
+        backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
+        height: "60px",
+      }} // Set default height here
+    >
       <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-10 w-10 mr-4" />
       </div>

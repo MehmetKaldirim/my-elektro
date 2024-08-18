@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="relative h-screen overflow-hidden">
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
-        src="https://www.w3schools.com/howto/rain.mp4"
+        src="https://vid.cdn-website.com/a3a7ce42/videos/pKFcaRAaTGqMhAA48vUL_electrician-technician-at-work-2022-08-04-14-41-12-utc-v.mp4"
         type="video/mp4"
         autoPlay
         loop
@@ -15,7 +15,7 @@ const Hero = () => {
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full bg-black bg-opacity-50 text-white p-6">
         <div className="md:w-1/2 p-4">
           <div className="flex flex-col">
-            <h1 className="text-4xl mb-4">
+            <h1 className="text-2xl lg:text-6xl mb-4 mt-48">
               Ihr Elektrikermeister aus{" "}
               <span className="text-yellow-300">Essen</span>
             </h1>
