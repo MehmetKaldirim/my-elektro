@@ -15,17 +15,32 @@ const Hero = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Function to handle the call button click
   const handleCallClick = () => {
-    if (isMobile) {
-      setShowCallOptions(!showCallOptions);
+    const phoneNumber = "+4917683396077"; // Use your actual number here
+
+    // Detect the user agent and open the appropriate calling application
+    if (navigator.userAgent.match(/(iPhone|iPad|iPod|Mac)/i)) {
+      // macOS/iOS - Use FaceTime
+      window.location.href = `facetime:${phoneNumber}`;
+    } else if (
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/Mobile/i)
+    ) {
+      // Mobile (Android/iOS) - Use tel:
+      window.location.href = `tel:${phoneNumber}`;
+    } else if (navigator.userAgent.match(/Windows/i)) {
+      // Windows - Use tel:
+      window.location.href = `tel:${phoneNumber}`;
     } else {
-      window.open("facetime:+4920145894463");
-      // Or use a tel link: window.open("tel:+4920145894463");
+      // Fallback for other platforms
+      window.location.href = `tel:${phoneNumber}`;
     }
   };
 
   const handleNumberClick = () => {
-    window.open("tel:+4920145894463");
+    const phoneNumber = "+4917683396077";
+    window.location.href = `tel:${phoneNumber}`;
   };
 
   const handleCancelClick = () => {
@@ -43,8 +58,8 @@ const Hero = () => {
         muted
       ></video>
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full bg-black bg-opacity-50 text-white p-6">
-        <div className="w-full md:w-1/2 p-4">
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full bg-black bg-opacity-50 text-white p-6">
+        <div className="w-full md:w-3/4 lg:w-1/2 p-4 md:px-20">
           <div className="flex flex-col">
             <h1 className="text-2xl lg:text-6xl mb-4 mt-20 lg:mt-48 text-left">
               Ihr Elektrikermeister aus{" "}
@@ -59,43 +74,65 @@ const Hero = () => {
             </p>
           </div>
           <button
-            className="flex items-center px-4 py-2 my-12 border border-white text-white hover:bg-white hover:text-yellow-300 transition-colors duration-300 rounded-3xl"
+            className="flex items-center justify-center w-full md:w-auto px-4 py-2 my-12 border border-white text-white hover:bg-white hover:text-yellow-300 transition-colors duration-300 rounded-3xl"
             onClick={handleCallClick}
           >
-            <FiPhone className="mr-2" />
+            <FiPhone className="mr-2 text-gray-500 fill-current" />
             Jetzt Anrufen
           </button>
+        </div>
 
-          {/* Sliding Buttons on Mobile */}
-          {isMobile && (
-            <div
-              className={`flex flex-col items-center mt-4 transition-transform duration-700 ${
-                showCallOptions ? "translate-y-0" : "translate-y-full"
-              }`}
-              style={{
-                transform: showCallOptions
-                  ? "translateY(0)"
-                  : "translateY(100%)",
-              }}
+        {/* Sliding Buttons on Mobile */}
+        {isMobile && showCallOptions && (
+          <div
+            className={`flex flex-col items-center mt-4 transition-transform duration-700 ${
+              showCallOptions ? "translate-y-0" : "translate-y-full"
+            }`}
+            style={{
+              transform: showCallOptions ? "translateY(0)" : "translateY(100%)",
+              width: "100%",
+            }}
+          >
+            <button
+              className="flex items-center justify-center w-full px-4 py-4 mb-2 bg-white text-blue-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
+              onClick={handleNumberClick}
             >
+              <FiPhone className="mr-2 text-gray-500 fill-current" />
+              Call +49 176 83396077
+            </button>
+            <button
+              className="flex items-center justify-center w-full px-4 py-4 bg-white text-red-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
+              onClick={handleCancelClick}
+            >
+              Abbrechen
+            </button>
+          </div>
+        )}
+
+        {/* Column Layout for Medium and Larger Screens */}
+        {!isMobile && showCallOptions && (
+          <div className="flex w-full mt-8">
+            <div className="w-full md:w-1/2 p-4">
               <button
-                className="flex items-center px-4 py-2 mb-2 bg-white text-blue-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
+                className="flex items-center justify-center w-full px-4 py-4 mb-2 bg-white text-blue-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
                 onClick={handleNumberClick}
               >
-                <FiPhone className="mr-2 text-gray-500" />
-                Call + 49 201 45894463
+                <FiPhone className="mr-2 text-gray-500 fill-current" />
+                Call +49 176 83396077
               </button>
+            </div>
+            <div className="w-full md:w-1/2 p-4">
               <button
-                className="flex items-center px-4 py-2 bg-white text-red-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
+                className="flex items-center justify-center w-full px-4 py-4 bg-white text-red-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
                 onClick={handleCancelClick}
               >
                 Abbrechen
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        <div className="w-full md:w-1/2 p-4">
+        <div className="w-full md:w-1/2 p-4 md:px-20">
           <div className="border-b border-yellow-300 pb-4 mb-4 mx-4 md:mx-0">
             <h2 className="text-2xl mb-2 text-left">Arbeitszeiten</h2>
             <p className="text-sm text-left">24/7 Notdienst</p>
@@ -107,7 +144,7 @@ const Hero = () => {
           <div className="pb-4 mb-4 mx-4 md:mx-0">
             <h2 className="text-2xl mb-2 text-left">Kontakt</h2>
             <p className="text-sm text-left">info@my-elektro.online</p>
-            <p className="text-sm font-bold text-left">+4920145894463</p>
+            <p className="text-sm font-bold text-left">+49 176 83396077</p>
           </div>
         </div>
       </div>

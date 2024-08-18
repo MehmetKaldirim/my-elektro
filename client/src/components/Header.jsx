@@ -42,6 +42,15 @@ const Header = () => {
 
   const headerOpacity = scrollY > 150 ? 1 : 0.5 + scrollY / 300;
 
+  // Function to handle the call button click
+  const handleCallClick = () => {
+    if (navigator.userAgent.includes("Windows")) {
+      window.location.href = "tel:+4917683396077";
+    } else {
+      window.location.href = "facetime:+4917683396077";
+    }
+  };
+
   return (
     <header
       className="fixed top-0 left-0 w-full p-4 flex items-center justify-between z-50 transition-opacity duration-300"
@@ -67,11 +76,17 @@ const Header = () => {
         <Link to="/kontakt" className="hover:underline">
           Kontakt
         </Link>
+        <Link to="/admin" className="hover:underline">
+          Admin
+        </Link>
       </nav>
 
       <div className="hidden md:flex items-center">
-        <button className="flex items-center bg-yellow-300 text-white rounded-full px-4 py-2 hover:bg-blue-700 transition-colors duration-300">
-          <FiPhone className="mr-2" />
+        <button
+          className="flex items-center bg-yellow-300 text-white rounded-full px-4 py-2 hover:bg-blue-700 transition-colors duration-300"
+          onClick={handleCallClick}
+        >
+          <FiPhone className="mr-2 text-gray-500" />
           Anrufen
         </button>
       </div>
@@ -115,6 +130,13 @@ const Header = () => {
             onClick={toggleMenu}
           >
             Kontakt
+          </Link>
+          <Link
+            to="/admin"
+            className="text-gray-800 hover:underline"
+            onClick={toggleMenu}
+          >
+            Admin
           </Link>
         </nav>
       </div>
