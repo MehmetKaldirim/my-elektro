@@ -132,7 +132,7 @@ const Hero = () => {
           </div>
         )}
 
-        <div className="w-full md:w-1/2 p-4 md:px-20">
+        <div className="w-full md:w-1/2 p-4 md:px-20 pb-20">
           <div className="border-b border-yellow-300 pb-4 mb-4 mx-4 md:mx-0">
             <h2 className="text-2xl mb-2 text-left">Arbeitszeiten</h2>
             <p className="text-sm text-left">24/7 Notdienst</p>
