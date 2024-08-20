@@ -88,16 +88,13 @@ export const getComments = async (req, res, next) => {
 
 export const getApproved = async (req, res, next) => {
   try {
-    const limit = parseInt(req.query.limit) || 3;
-    const startIndex = parseInt(req.query.startIndex) || 0;
-
+    const limit = parseInt(req.query.limit) || 0; // Fetch all approved comments without limit
     const sort = req.query.sort || "createdAt";
     const order = req.query.order || "desc"; // Default to descending order
 
-    const comments = await Comment.find({ isApproved: true })
-      .sort({ [sort]: order })
-      .limit(limit)
-      .skip(startIndex);
+    const comments = await Comment.find({ isApproved: true }).sort({
+      [sort]: order,
+    });
 
     return res.status(200).json(comments);
   } catch (error) {

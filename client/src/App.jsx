@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import Header from "./components/Header";
 import Admin from "./pages/Admin";
+import CTA from "./components/CTA";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
+      <CTA />
     </BrowserRouter>
   );
 }

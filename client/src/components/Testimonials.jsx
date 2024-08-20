@@ -9,6 +9,7 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 import bgImage from "../assets/bg2.png";
+import defaultAvatar from "../assets/defaultAvatar.png";
 
 const Testimonials = () => {
   const [share, setShare] = useState(false);
@@ -22,8 +23,8 @@ const Testimonials = () => {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [comments, setComments] = useState([]);
-  const [showMore, setShowMore] = useState(true);
-  const [limit, setLimit] = useState(3);
+  const [showMore, setShowMore] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +62,7 @@ const Testimonials = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setFormData({ ...formData, avatar: downloadURL })
+          setFormData((prevData) => ({ ...prevData, avatar: downloadURL }))
         );
       }
     );
@@ -69,13 +70,16 @@ const Testimonials = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { avatar, ...dataToSend } = formData;
+    const finalData = avatar ? formData : dataToSend;
+
     try {
       const res = await fetch(`/api/comment/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(finalData),
       });
 
       if (res.ok) {
@@ -97,13 +101,11 @@ const Testimonials = () => {
 
   const fetchComments = async () => {
     try {
-      const res = await fetch(`/api/comment/getApproved?limit=${limit}`);
+      const res = await fetch(`/api/comment/getApproved`);
       const data = await res.json();
       if (res.ok) {
         setComments(data);
-        if (data.length < limit) {
-          setShowMore(false);
-        }
+        setShowMore(data.length > 3);
       }
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -111,44 +113,44 @@ const Testimonials = () => {
   };
 
   const handleShowMore = () => {
-    setLimit((prevLimit) => prevLimit + 3);
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   useEffect(() => {
     fetchComments();
-  }, [limit]);
+  }, []);
+
+  const displayedComments = comments.slice(0, currentPage * 3);
 
   return (
     <section
       id="clients"
-      className="py-16 flex flex-col items-center relative"
+      className="flex flex-col items-center relative"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
       }}
     >
-      {!share ? (
-        <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-16 relative z-10">
-          <h2 className="text-4xl font-semibold text-white text-center sm:text-left">
-            Ihr Feedback ist uns wichtig.
-          </h2>
-          <div className="mt-6 sm:mt-0">
-            <Button
-              styles="mt-10 bg-yellow-500 text-black px-6 py-3 rounded-md"
-              onClick={() => {
-                setShare((prev) => !prev);
-              }}
-            >
-              Teilen
-            </Button>
-          </div>
-        </div>
-      ) : (
+      <div className="w-full bg-white py-16 flex flex-col sm:flex-row justify-center items-center relative z-10">
+        <h2 className="text-3xl font-semibold text-yellow-400 mx-20 text-center sm:text-left">
+          Ihr Feedback ist uns wichtig.
+        </h2>
+        <Button
+          styles="mt-4 mx-20 sm:mt-0 bg-yellow-400 text-white px-6 py-[8px] rounded-full"
+          onClick={() => {
+            setShare((prev) => !prev);
+          }}
+        >
+          Teilen
+        </Button>
+      </div>
+
+      {share && (
         <div className="w-full mt-6 relative z-10">
-          <h2 className="text-4xl font-semibold text-white text-center sm:text-left">
+          <h1 className="text-3xl font-semibold text-yellow-400 text-center sm:text-left">
             Was sind Ihre Gedanken über uns?
-          </h2>
+          </h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6">
             <input
               type="text"
@@ -174,7 +176,6 @@ const Testimonials = () => {
               accept="image/*"
               onChange={handleFileChange}
               className="p-3 rounded-md border border-gray-300"
-              required
             />
             <p className="text-sm self-center">
               {fileUploadError ? (
@@ -202,7 +203,7 @@ const Testimonials = () => {
             />
             <Button
               type="submit"
-              styles="mt-4 bg-yellow-500 text-black px-6 py-3 rounded-md"
+              styles="mt-4 bg-yellow-400 text-white px-6 py-3 rounded-md"
             >
               Absenden
             </Button>
@@ -210,16 +211,16 @@ const Testimonials = () => {
         </div>
       )}
 
-      <div className="flex flex-wrap sm:justify-start justify-center w-full relative z-10">
-        {comments.length > 0 ? (
-          comments.map((comment, index) => (
+      <div className="flex flex-wrap justify-center w-full relative z-10 px-5 sm:px-10">
+        {displayedComments.length > 0 ? (
+          displayedComments.map((comment, index) => (
             <FeedbackCard
               key={comment._id || index}
-              {...comment}
               name={comment.username}
               content={comment.comment}
               title={comment.title}
-              img={comment.avatar}
+              img={comment.avatar || defaultAvatar}
+              truncateContent={true}
             />
           ))
         ) : (
@@ -227,7 +228,7 @@ const Testimonials = () => {
         )}
       </div>
 
-      {showMore && comments.length > 0 && (
+      {showMore && (
         <Button
           styles="mt-6 bg-yellow-500 text-black px-6 py-3 rounded-md"
           onClick={handleShowMore}
