@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import FeedbackCard from "./FeedbackCard";
-import Button from "./Button";
+
 import {
   getDownloadURL,
   getStorage,
@@ -136,14 +136,15 @@ const Testimonials = () => {
         <h2 className="text-3xl font-semibold text-yellow-400 mx-20 text-center sm:text-left">
           Ihr Feedback ist uns wichtig.
         </h2>
-        <Button
-          styles="mt-4 mx-20 sm:mt-0 bg-yellow-400 text-white px-6 py-[8px] rounded-full"
+
+        <button
           onClick={() => {
             setShare((prev) => !prev);
           }}
+          className="bg-yellow-400 text-white font-semibold text-lg py-4 my-6 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400"
         >
           Teilen
-        </Button>
+        </button>
       </div>
 
       {share && (
@@ -201,12 +202,12 @@ const Testimonials = () => {
               className="p-3 rounded-md border border-gray-300 h-32"
               required
             />
-            <Button
+            <button
               type="submit"
-              styles="mt-4 bg-yellow-400 text-white px-6 py-3 rounded-md"
+              className="bg-yellow-400 text-white font-semibold text-lg py-4 my-6 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400"
             >
               Absenden
-            </Button>
+            </button>
           </form>
         </div>
       )}
@@ -229,12 +230,9 @@ const Testimonials = () => {
       </div>
 
       {showMore && (
-        <Button
-          styles="my-6 bg-yellow-500 text-black px-6 py-3 rounded-md"
-          onClick={handleShowMore}
-        >
+        <button className="bg-yellow-400 text-white font-semibold text-lg py-4 my-6 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
           Mehr anzeigen
-        </Button>
+        </button>
       )}
     </section>
   );

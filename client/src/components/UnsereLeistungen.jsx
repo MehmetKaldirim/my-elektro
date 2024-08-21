@@ -69,7 +69,7 @@ const UnsereLeistungen = () => {
       {/* Third Row: Button */}
       <div className="text-center">
         <Link to="/leistungen">
-          <button className="bg-yellow-500 text-white py-2 px-6 rounded-3xl hover:bg-yellow-600">
+          <button className="bg-yellow-400 text-white font-semibold text-lg py-4 my-6 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
             Alle Dienstleistungen anzeigen
           </button>
         </Link>
