@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn";
 import Header from "./components/Header";
 import Admin from "./pages/Admin";
 import CTA from "./components/CTA";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         </Routes>
       </div>
       <CTA />
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { FaArrowsAltH } from "react-icons/fa"; // Use left-right arrow icon
-import arbeite1 from "../assets/arbeite1.png";
-import arbeite2 from "../assets/arbeite2.png";
+import { Link } from "react-router-dom";
 
 const UnsereArbeit = () => {
   const [imageRevealFraq, setImageRevealFraq] = useState(0.5);
@@ -106,11 +105,11 @@ const UnsereArbeit = () => {
 
       {/* Third Row: Button */}
       <div className="py-12 mt-20 bg-white w-full flex justify-center">
-        <a href="/project">
+        <Link to="/projekt">
           <button className="bg-yellow-400 text-white font-semibold text-lg py-4 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
             Alle Projekte anzeigen
           </button>
-        </a>
+        </Link>
       </div>
     </div>
   );
