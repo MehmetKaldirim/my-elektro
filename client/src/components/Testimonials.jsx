@@ -230,7 +230,7 @@ const Testimonials = () => {
 
       {showMore && (
         <Button
-          styles="mt-6 bg-yellow-500 text-black px-6 py-3 rounded-md"
+          styles="my-6 bg-yellow-500 text-black px-6 py-3 rounded-md"
           onClick={handleShowMore}
         >
           Mehr anzeigen

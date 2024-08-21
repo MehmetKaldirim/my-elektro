@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FiPhone } from "react-icons/fi";
-import { FiArrowUp } from "react-icons/fi"; // Import the arrow icon
+import { FiPhone, FiArrowUp } from "react-icons/fi";
 import logo from "../assets/footer-image.png";
 
 export default function Footer() {
-  // Function to handle the call button click
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setShowScrollToTop(true);
+      } else {
+        setShowScrollToTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleCallClick = () => {
     if (navigator.userAgent.includes("Windows")) {
       window.location.href = "tel:+4917683396077";
@@ -14,7 +27,6 @@ export default function Footer() {
     }
   };
 
-  // Function to handle the scroll to top click
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -48,14 +60,16 @@ export default function Footer() {
       </div>
 
       {/* Scroll to Top Button */}
-      <div className="fixed bottom-4 right-4 md:hidden">
-        <button
-          onClick={handleScrollToTop}
-          className="bg-yellow-400 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500"
-        >
-          <FiArrowUp size={24} />
-        </button>
-      </div>
+      {showScrollToTop && (
+        <div className="fixed bottom-4 right-4 md:hidden">
+          <button
+            onClick={handleScrollToTop}
+            className="bg-yellow-400 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500"
+          >
+            <FiArrowUp size={24} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
