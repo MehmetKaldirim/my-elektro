@@ -42,7 +42,7 @@ const UnsereArbeit = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen flex flex-col items-center px-4 py-12">
+    <div className="bg-white min-h-screen flex flex-col items-center px-4 py-6">
       {/* First Row: Heading */}
       <div className="py-12">
         <h2 className="text-4xl font-bold text-yellow-400 text-center">
@@ -54,7 +54,8 @@ const UnsereArbeit = () => {
       <div className="px-4">
         <div
           ref={imageContainer}
-          className="max-w-6xl w-full mx-auto mt-32 relative select-none group"
+          className="max-w-lg w-full mx-auto mt-10 relative select-none group"
+          style={{ transform: "scale(1.4)" }} // Scale everything by 30%
         >
           <img
             src="https://lirp.cdn-website.com/md/pexels/dms3rep/multi/opt/network-cable-ethernet-computer-159304-640w.jpeg"
@@ -63,7 +64,6 @@ const UnsereArbeit = () => {
           />
           <img
             style={{
-              filter: "grayscale(100%)",
               clipPath: `polygon(0 0, ${imageRevealFraq * 100}% 0, ${
                 imageRevealFraq * 100
               }% 100%, 0 100%)`,
@@ -103,10 +103,11 @@ const UnsereArbeit = () => {
           </div>
         </div>
       </div>
+
       {/* Third Row: Button */}
-      <div className="py-12 bg-white w-full flex justify-center">
+      <div className="py-12 mt-20 bg-white w-full flex justify-center">
         <a href="/project">
-          <button className="bg-yellow-400 text-white font-semibold text-lg py-4 px-8 rounded-md shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
+          <button className="bg-yellow-400 text-white font-semibold text-lg py-4 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
             Alle Projekte anzeigen
           </button>
         </a>
