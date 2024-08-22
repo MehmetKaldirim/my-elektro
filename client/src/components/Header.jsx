@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { signoutSuccess } from "../redux/userSlice"; // adjust the import path
 import { FiPhone } from "react-icons/fi";
 import logo from "../assets/elektro-sembol.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -40,9 +44,13 @@ const Header = () => {
     };
   }, []);
 
-  const headerOpacity = scrollY > 150 ? 1 : 0.5 + scrollY / 300;
+  const headerOpacity = scrollY > 900 ? 1 : 0.5 + scrollY / 1200;
 
-  // Function to handle the call button click
+  const handleSignOut = () => {
+    dispatch(signoutSuccess()); // Dispatch the signout action
+    setIsOpen(false); // Close the menu after signing out
+  };
+
   const handleCallClick = () => {
     if (navigator.userAgent.includes("Windows")) {
       window.location.href = "tel:+4917683396077";
@@ -76,9 +84,18 @@ const Header = () => {
         <Link to="/kontakt" className="hover:underline">
           Kontakt
         </Link>
-        <Link to="/admin" className="hover:underline">
-          Admin
-        </Link>
+        {currentUser ? (
+          <button
+            onClick={handleSignOut}
+            className="hover:underline text-red-500"
+          >
+            Sign Out
+          </button>
+        ) : (
+          <Link to="/admin" className="hover:underline">
+            Admin
+          </Link>
+        )}
       </nav>
 
       <div className="hidden md:flex items-center">
@@ -100,7 +117,7 @@ const Header = () => {
             }`}
           />
           <div
-            className={`w-6 h-0.5  bg-black transition-opacity duration-300 ${
+            className={`w-6 h-0.5 bg-black transition-opacity duration-300 ${
               isOpen ? "opacity-0" : "opacity-100"
             }`}
           />
@@ -147,13 +164,22 @@ const Header = () => {
           >
             Kontakt
           </Link>
-          <Link
-            to="/admin"
-            className="text-gray-800 hover:underline"
-            onClick={toggleMenu}
-          >
-            Admin
-          </Link>
+          {currentUser ? (
+            <button
+              onClick={handleSignOut}
+              className="text-red-500 hover:underline"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <Link
+              to="/admin"
+              className="text-gray-800 hover:underline"
+              onClick={toggleMenu}
+            >
+              Admin
+            </Link>
+          )}
         </nav>
       </div>
     </header>
