@@ -28,8 +28,8 @@ const UnsereLeistungen = () => {
             alt="House"
             className="w-16 h-16 mb-4"
           />
-          <h2 className="text-xl font-semibold mb-2">
-            Mess-, Steuerungs- und Regelungstechnik
+          <h2 className="text-xl font-semibold mb-2 text-center">
+            Mess-, Steuerungs- und <br /> Regelungstechnik
           </h2>
           <p className="text-gray-500 text-center">
             Wir installieren Sensoren und Steuerungen, um industrielle Prozesse

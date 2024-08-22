@@ -8,6 +8,9 @@ import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 import Leistungen from "./pages/Leistungen";
 import Uber from "./pages/Uber";
+import PrivateRoute from "./components/PrivateRoute";
+import Comments from "./pages/Comments";
+import UpdateComment from "./pages/UpdateComment";
 
 export default function App() {
   return (
@@ -17,10 +20,18 @@ export default function App() {
         {/* Adjust padding for mobile and larger screens */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/admin" element={<Admin />} />
+
           <Route path="/leistungen" element={<Leistungen />} />
           <Route path="/uber" element={<Uber />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/comments" element={<Comments />} />
+            <Route
+              path="/updateComment/:commentId"
+              element={<UpdateComment />}
+            />
+          </Route>
         </Routes>
       </div>
       <CTA />
