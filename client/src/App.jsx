@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Admin from "./pages/Admin";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
+import Leistungen from "./pages/Leistungen";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/leistungen" element={<Leistungen />} />
         </Routes>
       </div>
       <CTA />
