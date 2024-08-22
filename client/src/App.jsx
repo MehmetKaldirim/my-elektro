@@ -20,11 +20,10 @@ export default function App() {
         {/* Adjust padding for mobile and larger screens */}
         <Routes>
           <Route path="/" element={<Home />} />
-
+          <Route path="/admin" element={<Admin />} />
           <Route path="/leistungen" element={<Leistungen />} />
           <Route path="/uber" element={<Uber />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/admin" element={<Admin />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/comments" element={<Comments />} />
             <Route
