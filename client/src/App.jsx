@@ -7,6 +7,7 @@ import Admin from "./pages/Admin";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 import Leistungen from "./pages/Leistungen";
+import Uber from "./pages/Uber";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/leistungen" element={<Leistungen />} />
+          <Route path="/uber" element={<Uber />} />
         </Routes>
       </div>
       <CTA />

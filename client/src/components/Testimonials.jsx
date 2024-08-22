@@ -230,7 +230,10 @@ const Testimonials = () => {
       </div>
 
       {showMore && (
-        <button className="bg-yellow-400 text-white font-semibold text-lg py-4 my-6 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
+        <button
+          className="bg-yellow-400 text-white font-semibold text-lg py-4 my-6 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400 "
+          onClick={handleShowMore}
+        >
           Mehr anzeigen
         </button>
       )}
