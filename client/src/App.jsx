@@ -11,7 +11,7 @@ import Uber from "./pages/Uber";
 import PrivateRoute from "./components/PrivateRoute";
 import Comments from "./pages/Comments";
 import UpdateComment from "./pages/UpdateComment";
-
+import Kontakt from "./pages/Contact";
 export default function App() {
   return (
     <BrowserRouter>
@@ -23,6 +23,8 @@ export default function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/leistungen" element={<Leistungen />} />
           <Route path="/uber" element={<Uber />} />
+          <Route path="/kontakt" element={<Kontakt />} />
+
           <Route element={<PrivateRoute />}>
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/comments" element={<Comments />} />
