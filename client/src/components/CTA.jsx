@@ -11,7 +11,7 @@ const CTA = () => {
         </h2>
 
         {/* Button */}
-        <Link to="/contact">
+        <Link to="/kontakt">
           <button className="bg-yellow-400 text-white font-semibold text-base py-3 px-6 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
             Kostenloser Kostenvoranschlag <br /> anfordern
           </button>

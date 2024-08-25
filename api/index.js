@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import commentRouter from "./routes/comment.route.js";
 import authRouter from "./routes/auth.route.js";
+import contactRouter from "./routes/contact.route.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -27,6 +28,7 @@ app.use(express.json());
 
 app.use("/api/comment", commentRouter);
 app.use("/api/auth", authRouter);
+app.use("/api", contactRouter);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
