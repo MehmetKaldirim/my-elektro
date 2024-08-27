@@ -12,6 +12,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import Comments from "./pages/Comments";
 import UpdateComment from "./pages/UpdateComment";
 import Kontakt from "./pages/Contact";
+import Impressum from "./pages/Impressum";
+import Datenschutz from "./pages/Datenshutz";
 export default function App() {
   return (
     <BrowserRouter>
@@ -33,6 +35,8 @@ export default function App() {
               element={<UpdateComment />}
             />
           </Route>
+          <Route path="/impressum" element={<Impressum />} />
+          <Route path="/datenschutz" element={<Datenschutz />} />
         </Routes>
       </div>
       <CTA />
