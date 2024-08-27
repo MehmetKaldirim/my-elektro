@@ -20,14 +20,14 @@ export const contact = (req, res) => {
     service: "Gmail",
     port: 465,
     auth: {
-      user: "mehmetkaldirimde@gmail.com",
+      user: "mathdenizi@gmail.com",
       pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   let mailOptions = {
     from: "mathdenizi@gmail.com",
-    to: "mehmetkaldirimde@gmail.com",
+    to: "mathdenizi@gmail.com",
     subject: `Message from ${name}`,
     html: `
       <h3>Informationen</h3>
@@ -42,16 +42,12 @@ export const contact = (req, res) => {
 
   smtpTransporter.sendMail(mailOptions, (error) => {
     if (error) {
-      return res
-        .status(500)
-        .json({
-          msg: "Es ist ein Serverfehler aufgetreten. Bitte versuchen Sie es später erneut.",
-        });
-    }
-    return res
-      .status(200)
-      .json({
-        msg: "Vielen Dank für Ihre Kontaktaufnahme, Kaldirim wird sich bald bei Ihnen melden.",
+      return res.status(500).json({
+        msg: "Es ist ein Serverfehler aufgetreten. Bitte versuchen Sie es später erneut.",
       });
+    }
+    return res.status(200).json({
+      msg: "Vielen Dank für Ihre Kontaktaufnahme, Kaldirim wird sich bald bei Ihnen melden.",
+    });
   });
 };
