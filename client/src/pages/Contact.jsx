@@ -19,6 +19,7 @@ const Contact = () => {
     name: "",
     telefon: "",
     service: "",
+    general: "",
   });
 
   const services = [
@@ -64,39 +65,31 @@ const Contact = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        // Handle field-specific errors
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          name: data.msg.includes("Name") ? "Name is required" : "",
-          telefon: data.msg.includes("Telefon") ? "Telefon is required" : "",
-          service: data.msg.includes("Service") ? "Service is required" : "",
-        }));
-        toast.error(data.msg); // This will show the error message in red
+        // Handle field-specific errors returned from the server
+        setErrors({
+          ...errors,
+          ...data.errors, // Populate specific field errors
+        });
         return;
       }
 
       // On success
-      toast.success(data.msg); // Success messages will be in green
+      toast.success(data.msg); // Show success message with toast
       setFormData({ name: "", telefon: "", service: "" }); // Reset the form
       setSelectedService(""); // Reset service selection
-      setErrors({ name: "", telefon: "", service: "" }); // Clear errors
+      setErrors({ name: "", telefon: "", service: "", general: "" }); // Clear errors
     } catch (error) {
-      toast.error("There is a server error. Please try again later."); // Red toast for server error
+      setErrors({
+        ...errors,
+        general:
+          "Es ist ein Serverfehler aufgetreten. Bitte versuchen Sie es später erneut.",
+      });
     }
   };
+
   return (
     <div className="min-h-screen p-10 md:p-40">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer />
       <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-40 justify-center">
         {/* First Column */}
         <div className="w-full md:w-1/2 bg-white p-6 shadow-lg flex flex-col justify-between">
@@ -120,7 +113,7 @@ const Contact = () => {
                       ? "border-2 border-black"
                       : "border-b-2 border-gray-300"
                   }`}
-                  placeholder="Enter your name"
+                  placeholder="Geben Sie Ihren Namen ein"
                   onFocus={() => handleFocus("name")}
                   onBlur={() => handleBlur("name")}
                 />
@@ -144,7 +137,7 @@ const Contact = () => {
                       ? "border-2 border-black"
                       : "border-b-2 border-gray-300"
                   }`}
-                  placeholder="Enter your phone number"
+                  placeholder="Geben Sie Ihre Telefonnummer ein"
                   onFocus={() => handleFocus("telefon")}
                   onBlur={() => handleBlur("telefon")}
                 />
@@ -173,7 +166,7 @@ const Contact = () => {
                     name="service"
                     value={selectedService}
                     readOnly
-                    placeholder="Select a service"
+                    placeholder="Wählen Sie einen Service aus"
                     className="w-full outline-none cursor-pointer"
                   />
                   {showOptions && (
@@ -204,6 +197,13 @@ const Contact = () => {
                   Kostenvoranschlag einholen
                 </button>
               </div>
+
+              {/* General Error Message Display */}
+              {errors.general && (
+                <div className="mt-4 text-red-500 text-sm">
+                  {errors.general}
+                </div>
+              )}
             </form>
           </div>
         </div>
