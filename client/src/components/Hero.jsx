@@ -48,16 +48,19 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden mt-16">
+      {" "}
+      {/* Added margin-top to avoid overlap */}
       <video
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
         src="https://vid.cdn-website.com/a3a7ce42/videos/pKFcaRAaTGqMhAA48vUL_electrician-technician-at-work-2022-08-04-14-41-12-utc-v.mp4"
         type="video/mp4"
         autoPlay
         loop
         muted
+        playsInline
+        preload="auto"
       ></video>
-
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full bg-black bg-opacity-50 text-white p-6">
         <div className="w-full md:w-3/4 lg:w-1/2 p-4 md:px-20">
           <div className="flex flex-col">

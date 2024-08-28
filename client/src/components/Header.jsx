@@ -1,158 +1,189 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { signoutSuccess } from "../redux/userSlice"; // adjust the import path
 import { FiPhone } from "react-icons/fi";
+import logo from "../assets/elektro-sembol.png";
 
-const Hero = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [showCallOptions, setShowCallOptions] = useState(false);
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
 
-  // Detect if the screen is mobile or desktop
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeMenu = (e) => {
+    if (e.target.closest("nav") || e.target.closest(".hamburger")) {
+      return;
+    }
+    setIsOpen(false);
+  };
+
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+    if (isOpen) {
+      document.addEventListener("click", closeMenu);
+    } else {
+      document.removeEventListener("click", closeMenu);
+    }
+    return () => {
+      document.removeEventListener("click", closeMenu);
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+  }, [isOpen]);
+
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  // Function to handle the call button click
-  const handleCallClick = () => {
-    const phoneNumber = "+4917683396077"; // Use your actual number here
+  const headerOpacity = scrollY > 900 ? 1 : 0.5 + scrollY / 1200;
 
-    // Detect the user agent and open the appropriate calling application
-    if (navigator.userAgent.match(/(iPhone|iPad|iPod|Mac)/i)) {
-      // macOS/iOS - Use FaceTime
-      window.location.href = `facetime:${phoneNumber}`;
-    } else if (
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/Mobile/i)
-    ) {
-      // Mobile (Android/iOS) - Use tel:
-      window.location.href = `tel:${phoneNumber}`;
-    } else if (navigator.userAgent.match(/Windows/i)) {
-      // Windows - Use tel:
-      window.location.href = `tel:${phoneNumber}`;
+  const handleSignOut = () => {
+    dispatch(signoutSuccess()); // Dispatch the signout action
+    setIsOpen(false); // Close the menu after signing out
+  };
+
+  const handleCallClick = () => {
+    if (navigator.userAgent.includes("Windows")) {
+      window.location.href = "tel:+4917683396077";
     } else {
-      // Fallback for other platforms
-      window.location.href = `tel:${phoneNumber}`;
+      window.location.href = "facetime:+4917683396077";
     }
   };
 
-  const handleNumberClick = () => {
-    const phoneNumber = "+4917683396077";
-    window.location.href = `tel:${phoneNumber}`;
-  };
-
-  const handleCancelClick = () => {
-    setShowCallOptions(false);
-  };
-
   return (
-    <div className="relative h-screen overflow-hidden mt-16">
-      {" "}
-      {/* Added margin-top to avoid overlap */}
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        src="https://vid.cdn-website.com/a3a7ce42/videos/pKFcaRAaTGqMhAA48vUL_electrician-technician-at-work-2022-08-04-14-41-12-utc-v.mp4"
-        type="video/mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-      ></video>
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full bg-black bg-opacity-50 text-white p-6">
-        <div className="w-full md:w-3/4 lg:w-1/2 p-4 md:px-20">
-          <div className="flex flex-col">
-            <h1 className="text-2xl lg:text-6xl mb-4 mt-20 lg:mt-48 text-left">
-              Ihr <br /> Elektrikermeister <br /> aus{" "}
-              <span className="text-yellow-300">Essen</span>
-            </h1>
-            <p className="text-xl text-white text-left">
-              Wir arbeiten mit der größten Sorgfalt, um Ihnen die beste
-              Elektroinstallation bieten zu können. Wir verwenden die neueste
-              Technologie, um von Anfang bis Ende einen erstklassigen Service zu
-              gewährleisten. Sie können jeden Schritt des Prozesses verfolgen.
-              Wir sind erst dann zufrieden, wenn Sie es sind.
-            </p>
-          </div>
-          <button
-            className="flex items-center justify-center w-full md:w-auto px-4 py-2 my-12 border border-white text-white hover:bg-white hover:text-yellow-300 transition-colors duration-300 rounded-3xl"
-            onClick={handleCallClick}
-          >
-            <FiPhone className="mr-2 text-gray-500 fill-current" />
-            Jetzt Anrufen
-          </button>
-        </div>
-
-        {/* Sliding Buttons on Mobile */}
-        {isMobile && showCallOptions && (
-          <div
-            className={`flex flex-col items-center mt-4 transition-transform duration-700 ${
-              showCallOptions ? "translate-y-0" : "translate-y-full"
-            }`}
-            style={{
-              transform: showCallOptions ? "translateY(0)" : "translateY(100%)",
-              width: "100%",
-            }}
-          >
-            <button
-              className="flex items-center justify-center w-full px-4 py-4 mb-2 bg-white text-blue-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
-              onClick={handleNumberClick}
-            >
-              <FiPhone className="mr-2 text-gray-500 fill-current" />
-              Call +49 176 83396077
-            </button>
-            <button
-              className="flex items-center justify-center w-full px-4 py-4 bg-white text-red-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
-              onClick={handleCancelClick}
-            >
-              Abbrechen
-            </button>
-          </div>
-        )}
-
-        {/* Column Layout for Medium and Larger Screens */}
-        {!isMobile && showCallOptions && (
-          <div className="flex w-full mt-8">
-            <div className="w-full md:w-1/2 p-4">
-              <button
-                className="flex items-center justify-center w-full px-4 py-4 mb-2 bg-white text-blue-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
-                onClick={handleNumberClick}
-              >
-                <FiPhone className="mr-2 text-gray-500 fill-current" />
-                Call +49 176 83396077
-              </button>
-            </div>
-            <div className="w-full md:w-1/2 p-4">
-              <button
-                className="flex items-center justify-center w-full px-4 py-4 bg-white text-red-500 border border-gray-300 rounded shadow-md hover:bg-gray-100 transition-colors duration-300"
-                onClick={handleCancelClick}
-              >
-                Abbrechen
-              </button>
-            </div>
-          </div>
-        )}
-
-        <div className="w-full md:w-1/2 p-4 md:px-20 pb-20">
-          <div className="border-b border-yellow-300 pb-4 mb-4 mx-4 md:mx-0">
-            <h2 className="text-2xl mb-2 text-left">Arbeitszeiten</h2>
-            <p className="text-sm text-left">24/7 Notdienst</p>
-          </div>
-          <div className="border-b border-yellow-300 pb-4 mb-4 mx-4 md:mx-0">
-            <h2 className="text-2xl mb-2 text-left">Servicebereich</h2>
-            <p className="text-sm text-left">Deutschlandweit</p>
-          </div>
-          <div className="pb-4 mb-4 mx-4 md:mx-0">
-            <h2 className="text-2xl mb-2 text-left">Kontakt</h2>
-            <p className="text-sm text-left">info@my-elektro.online</p>
-            <p className="text-sm font-bold text-left">+49 176 83396077</p>
-          </div>
-        </div>
+    <header
+      className="fixed top-0 left-0 w-full p-4 flex items-center justify-between z-50 transition-opacity duration-300"
+      style={{
+        backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
+        height: "60px",
+      }}
+    >
+      <div className="flex items-center">
+        <img src={logo} alt="Logo" className="h-10 w-10 mr-4" />
       </div>
-    </div>
+
+      <nav className="hidden md:flex flex-grow justify-center space-x-8">
+        <Link to="/" className="hover:underline">
+          Home
+        </Link>
+        <Link to="/leistungen" className="hover:underline">
+          Leistungen
+        </Link>
+        <Link to="/uber" className="hover:underline">
+          Über
+        </Link>
+        <Link to="/kontakt" className="hover:underline">
+          Kontakt
+        </Link>
+        {currentUser ? (
+          <button
+            onClick={handleSignOut}
+            className="hover:underline text-red-500"
+          >
+            Sign Out
+          </button>
+        ) : (
+          <Link to="/admin" className="hover:underline">
+            Admin
+          </Link>
+        )}
+      </nav>
+
+      <div className="hidden md:flex items-center">
+        <button
+          className="flex items-center bg-yellow-400 text-white rounded-xl px-4 py-2 transition-colors duration-300"
+          onClick={handleCallClick}
+        >
+          <FiPhone className="mr-2 text-gray-500" />
+          Jetzt Anrufen
+        </button>
+      </div>
+
+      {/* Hamburger menu icon */}
+      <div className="md:hidden">
+        <button className="relative z-50 hamburger" onClick={toggleMenu}>
+          <div
+            className={`w-6 h-0.5 my-1 bg-black transition-transform duration-300 ${
+              isOpen ? "rotate-45 translate-y-3.5 " : ""
+            }`}
+          />
+          <div
+            className={`w-6 h-0.5 bg-black transition-opacity duration-300 ${
+              isOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <div
+            className={`w-6 h-0.5 my-1 bg-black transition-transform duration-300 ${
+              isOpen ? "-rotate-45 translate-y-0.5 " : ""
+            }`}
+          />
+        </button>
+      </div>
+
+      {/* Slide-out mobile menu */}
+      <div
+        className={`fixed top-0 right-0 bg-white w-64 h-screen shadow-lg flex flex-col p-6 transform ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        } transition-transform duration-500 ease-in-out z-30`}
+      >
+        <nav className="flex flex-col space-y-4 mt-10">
+          <Link
+            to="/"
+            className="text-gray-800 hover:underline"
+            onClick={toggleMenu}
+          >
+            Home
+          </Link>
+          <Link
+            to="/leistungen"
+            className="text-gray-800 hover:underline"
+            onClick={toggleMenu}
+          >
+            Leistungen
+          </Link>
+          <Link
+            to="/uber"
+            className="text-gray-800 hover:underline"
+            onClick={toggleMenu}
+          >
+            Über
+          </Link>
+          <Link
+            to="/kontakt"
+            className="text-gray-800 hover:underline"
+            onClick={toggleMenu}
+          >
+            Kontakt
+          </Link>
+          {currentUser ? (
+            <button
+              onClick={handleSignOut}
+              className="text-red-500 hover:underline"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <Link
+              to="/admin"
+              className="text-gray-800 hover:underline"
+              onClick={toggleMenu}
+            >
+              Admin
+            </Link>
+          )}
+        </nav>
+      </div>
+    </header>
   );
 };
 
-export default Hero;
+export default Header;
