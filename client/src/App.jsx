@@ -29,24 +29,82 @@ export default function App() {
           {/* Home page loaded directly */}
           <Route path="/" element={<Home />} />
 
-          <Suspense fallback={<div>Loading...</div>}>
-            {/* Lazy-loaded routes */}
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/leistungen" element={<Leistungen />} />
-            <Route path="/uber" element={<Uber />} />
-            <Route path="/kontakt" element={<Kontakt />} />
-            <Route path="/impressum" element={<Impressum />} />
-            <Route path="/datenschutz" element={<Datenschutz />} />
+          {/* Lazy-loaded routes wrapped with Suspense */}
+          <Route
+            path="/admin"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Admin />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/leistungen"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Leistungen />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/uber"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Uber />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/kontakt"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Kontakt />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/impressum"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Impressum />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/datenschutz"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Datenschutz />
+              </Suspense>
+            }
+          />
 
-            <Route element={<PrivateRoute />}>
-              <Route path="/sign-in" element={<SignIn />} />
-              <Route path="/comments" element={<Comments />} />
-              <Route
-                path="/updateComment/:commentId"
-                element={<UpdateComment />}
-              />
-            </Route>
-          </Suspense>
+          <Route element={<PrivateRoute />}>
+            <Route
+              path="/sign-in"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <SignIn />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/comments"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Comments />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/updateComment/:commentId"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <UpdateComment />
+                </Suspense>
+              }
+            />
+          </Route>
         </Routes>
       </div>
       <CTA />
