@@ -62,7 +62,7 @@ const Hero = () => {
         <div className="w-full md:w-3/4 lg:w-1/2 p-4 md:px-20">
           <div className="flex flex-col">
             <h1 className="text-2xl lg:text-6xl mb-4 mt-20 lg:mt-48 text-left">
-              Ihr Elektrikermeister aus{" "}
+              Ihr <br /> Elektrikermeister <br /> aus{" "}
               <span className="text-yellow-300">Essen</span>
             </h1>
             <p className="text-xl text-white text-left">
