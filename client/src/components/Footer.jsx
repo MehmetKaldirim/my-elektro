@@ -54,7 +54,7 @@ export default function Footer() {
           className="flex items-center rounded-full px-4 py-2 hover:bg-yellow-400 hover:text-white shadow-xl"
           onClick={handleCallClick}
         >
-          <FiPhone className="mr-2 text-gray-500" />
+          <FiPhone className="mr-2 text-white" />
           Jetzt Anrufen
         </button>
       </div>

@@ -55,7 +55,7 @@ const Hero = () => {
         preload="auto"
       ></video>
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center bg-black bg-opacity-50 text-white px-6">
-        <div className="w-full md:w-3/4 lg:w-1/2 p-4 md:px-20">
+        <div className="w-full md:w-1/2 lg:w-1/2 p-4 md:px-20">
           <div className="flex flex-col">
             <h1 className="text-2xl lg:text-6xl mb-4 mt-20 lg:mt-48 text-left">
               Ihr <br /> Elektrikermeister <br /> aus{" "}
@@ -126,7 +126,7 @@ const Hero = () => {
           </div>
         )}
 
-        <div className="w-full md:w-1/2 p-4 mb-20 md:px-20 pb-20">
+        <div className="w-full md:w-1/2 lg:w-1/2 p-4 md:px-20">
           <div className="border-b border-yellow-300 pb-4 mb-4 mx-4 md:mx-0">
             <h2 className="text-2xl mb-2 text-left">Arbeitszeiten</h2>
             <p className="text-sm text-left">24/7 Notdienst</p>

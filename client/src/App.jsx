@@ -7,6 +7,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 // Direct import for the Home page (not lazy-loaded)
 import Home from "./pages/Home";
+import ProjectPage from "./pages/Project";
 
 // Lazy loading for other pages
 const Admin = lazy(() => import("./pages/Admin"));
@@ -18,6 +19,7 @@ const Datenschutz = lazy(() => import("./pages/Datenshutz"));
 const SignIn = lazy(() => import("./pages/SignIn"));
 const Comments = lazy(() => import("./pages/Comments"));
 const UpdateComment = lazy(() => import("./pages/UpdateComment"));
+const Project = lazy(() => import("./pages/Project"));
 
 export default function App() {
   return (
@@ -75,6 +77,14 @@ export default function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Datenschutz />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/project"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Project />
               </Suspense>
             }
           />

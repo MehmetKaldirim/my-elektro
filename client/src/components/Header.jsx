@@ -100,10 +100,10 @@ const Header = () => {
 
       <div className="hidden md:flex items-center">
         <button
-          className="flex items-center bg-yellow-400 text-white rounded-xl px-4 py-2 transition-colors duration-300"
+          className="flex items-center rounded-full px-4 py-2 hover:bg-yellow-400 hover:text-white shadow-xl"
           onClick={handleCallClick}
         >
-          <FiPhone className="mr-2 text-gray-500" />
+          <FiPhone className="mr-2 text-white" />
           Jetzt Anrufen
         </button>
       </div>
