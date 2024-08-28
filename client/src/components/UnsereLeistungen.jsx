@@ -1,5 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import sunLogo from "../assets/Sun.png";
+import houseLogo from "../assets/house.png";
+import steckdoseLogo from "../assets/steckdose.png";
+import maintanenceLogo from "../assets/maintanence.png";
 
 const UnsereLeistungen = () => {
   return (
@@ -13,7 +17,7 @@ const UnsereLeistungen = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         {/* First Column */}
         <div className="flex flex-col items-center">
-          <img src="/src/assets/Sun.png" alt="Sun" className="w-16 h-16 mb-4" />
+          <img src={sunLogo} alt="Sun" className="w-16 h-16 mb-4" />
           <h2 className="text-xl font-semibold mb-2">Photovoltaik</h2>
           <p className="text-gray-500 text-center">
             Wir installieren PV-Anlagen, die Sonnenlicht in Strom umwandeln, und
@@ -23,11 +27,7 @@ const UnsereLeistungen = () => {
 
         {/* Second Column */}
         <div className="flex flex-col items-center">
-          <img
-            src="/src/assets/house.png"
-            alt="House"
-            className="w-16 h-16 mb-4"
-          />
+          <img src={houseLogo} alt="House" className="w-16 h-16 mb-4" />
           <h2 className="text-xl font-semibold mb-2 text-center">
             Mess-, Steuerungs- und <br /> Regelungstechnik
           </h2>
@@ -40,7 +40,7 @@ const UnsereLeistungen = () => {
         {/* Third Column */}
         <div className="flex flex-col items-center">
           <img
-            src="/src/assets/maintanence.png"
+            src={maintanenceLogo}
             alt="Maintenance"
             className="w-16 h-16 mb-4"
           />
@@ -53,11 +53,7 @@ const UnsereLeistungen = () => {
 
         {/* Fourth Column */}
         <div className="flex flex-col items-center">
-          <img
-            src="/src/assets/steckdose.png"
-            alt="Steckdose"
-            className="w-16 h-16 mb-4"
-          />
+          <img src={steckdoseLogo} alt="Steckdose" className="w-16 h-16 mb-4" />
           <h2 className="text-xl font-semibold mb-2">Geräteprüfung</h2>
           <p className="text-gray-500 text-center">
             Sicherheit durch regelmäßige Geräteprüfung gemäß DIN VDE 0701 und

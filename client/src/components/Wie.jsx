@@ -1,4 +1,5 @@
 import React from "react";
+import abuk from "../assets/abuk.png";
 
 export default function Wie() {
   return (
@@ -6,11 +7,7 @@ export default function Wie() {
       <div className="flex flex-col lg:flex-row items-center lg:items-start">
         {/* Left Column: Image */}
         <div className="w-full md:w-1/2 md:my-20  my-8 md:mx-20 mx-6">
-          <img
-            src="/src/assets/abuk.png"
-            alt="Abuk"
-            className="w-[70%] h-[70%] "
-          />
+          <img src={abuk} alt="Abuk" className="w-[70%] h-[70%] " />
         </div>
 
         {/* Right Column: Title and List */}

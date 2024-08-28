@@ -45,35 +45,39 @@ export default function Uber() {
 
         <div className="shadow-md flex flex-col md:flex-row bg-yellow-400 justify-between">
           {/* Column 1 */}
-          <div className="flex flex-col justify-center items-center bg-white p-14">
+          <div className="flex-1 flex flex-col justify-center items-center bg-white px-10 py-10 md:px-20 md:mr-6 min-w-[250px]">
             <img
               src={certi}
               alt="TÜV geprüfter Solartechniker"
-              className="h-20 w-auto mb-4" // Adjust the height of the image
+              className="h-20 w-auto mb-4"
             />
-            <h3 className="text-xl font-semibold">
+            <h3 className="font-semibold px-6 text-center whitespace-nowrap">
               TÜV geprüfter Solartechniker
             </h3>
           </div>
 
           {/* Column 2 */}
-          <div className="flex flex-col justify-center items-center bg-white p-14 my-6 md:my-0 md:mx-6">
+          <div className="flex-1 flex flex-col justify-center items-center bg-white px-20 py-10 my-10 md:my-0 md:mx-6 min-w-[250px]">
             <img
               src={certi}
               alt="TÜV geprüfter Solartechniker"
-              className="h-20 w-auto mb-4" // Adjust the height of the image
+              className="h-20 w-auto mb-4"
             />
-            <h3 className="text-xl font-semibold">HWK Meisterabschluss</h3>
+            <h3 className="font-semibold px-6 text-center whitespace-nowrap">
+              HWK Meisterabschluss
+            </h3>
           </div>
 
           {/* Column 3 */}
-          <div className="flex flex-col justify-center items-center bg-white p-14">
+          <div className="flex-1 flex flex-col justify-center items-center bg-white px-20 py-10 md:ml-6 min-w-[250px]">
             <img
               src={certi}
               alt="TÜV geprüfter Solartechniker"
-              className="h-20 w-auto mb-4" // Adjust the height of the image
+              className="h-20 w-auto mb-4"
             />
-            <h3 className="text-xl font-semibold">KNX Partner</h3>
+            <h3 className="font-semibold px-6 text-center whitespace-nowrap">
+              KNX Partner
+            </h3>
           </div>
         </div>
       </div>
