@@ -5,7 +5,6 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showCallOptions, setShowCallOptions] = useState(false);
 
-  // Detect if the screen is mobile or desktop
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -15,25 +14,19 @@ const Hero = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Function to handle the call button click
   const handleCallClick = () => {
-    const phoneNumber = "+4917683396077"; // Use your actual number here
+    const phoneNumber = "+4917683396077";
 
-    // Detect the user agent and open the appropriate calling application
     if (navigator.userAgent.match(/(iPhone|iPad|iPod|Mac)/i)) {
-      // macOS/iOS - Use FaceTime
       window.location.href = `facetime:${phoneNumber}`;
     } else if (
       navigator.userAgent.match(/Android/i) ||
       navigator.userAgent.match(/Mobile/i)
     ) {
-      // Mobile (Android/iOS) - Use tel:
       window.location.href = `tel:${phoneNumber}`;
     } else if (navigator.userAgent.match(/Windows/i)) {
-      // Windows - Use tel:
       window.location.href = `tel:${phoneNumber}`;
     } else {
-      // Fallback for other platforms
       window.location.href = `tel:${phoneNumber}`;
     }
   };
@@ -48,9 +41,9 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-screen overflow-hidden mt-16">
+    <div className="relative min-h-screen overflow-hidden">
       {" "}
-      {/* Added margin-top to avoid overlap */}
+      {/* Changed h-screen to min-h-screen and added pt-16 */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
         src="https://vid.cdn-website.com/a3a7ce42/videos/pKFcaRAaTGqMhAA48vUL_electrician-technician-at-work-2022-08-04-14-41-12-utc-v.mp4"
@@ -61,7 +54,7 @@ const Hero = () => {
         playsInline
         preload="auto"
       ></video>
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full bg-black bg-opacity-50 text-white p-6">
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center bg-black bg-opacity-50 text-white px-6">
         <div className="w-full md:w-3/4 lg:w-1/2 p-4 md:px-20">
           <div className="flex flex-col">
             <h1 className="text-2xl lg:text-6xl mb-4 mt-20 lg:mt-48 text-left">
@@ -85,7 +78,6 @@ const Hero = () => {
           </button>
         </div>
 
-        {/* Sliding Buttons on Mobile */}
         {isMobile && showCallOptions && (
           <div
             className={`flex flex-col items-center mt-4 transition-transform duration-700 ${
@@ -112,7 +104,6 @@ const Hero = () => {
           </div>
         )}
 
-        {/* Column Layout for Medium and Larger Screens */}
         {!isMobile && showCallOptions && (
           <div className="flex w-full mt-8">
             <div className="w-full md:w-1/2 p-4">
@@ -135,7 +126,7 @@ const Hero = () => {
           </div>
         )}
 
-        <div className="w-full md:w-1/2 p-4 md:px-20 pb-20">
+        <div className="w-full md:w-1/2 p-4 mb-20 md:px-20 pb-20">
           <div className="border-b border-yellow-300 pb-4 mb-4 mx-4 md:mx-0">
             <h2 className="text-2xl mb-2 text-left">Arbeitszeiten</h2>
             <p className="text-sm text-left">24/7 Notdienst</p>

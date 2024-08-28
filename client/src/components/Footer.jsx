@@ -61,7 +61,7 @@ export default function Footer() {
 
       {/* Scroll to Top Button */}
       {showScrollToTop && (
-        <div className="fixed bottom-4 right-4 md:hidden">
+        <div className="fixed bottom-4 right-4 md:hidden z-30">
           <button
             onClick={handleScrollToTop}
             className="bg-yellow-400 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500"
