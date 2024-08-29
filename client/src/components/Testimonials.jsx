@@ -89,6 +89,9 @@ const Testimonials = () => {
           avatar: null,
           comment: "",
         });
+        setFile(undefined);
+        setFilePerc(0);
+        fileUploadError(false);
         setShare(false);
         alert("Ihr Kommentar wurde zur Genehmigung eingereicht.");
       } else {
@@ -143,7 +146,7 @@ const Testimonials = () => {
           }}
           className="bg-yellow-400 text-white font-semibold text-lg py-4 my-6 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400"
         >
-          Teilen
+          {share ? "Cancel" : "Teilen"}
         </button>
       </div>
 
@@ -176,6 +179,7 @@ const Testimonials = () => {
               name="avatar"
               accept="image/*"
               onChange={handleFileChange}
+              placeholder="Ihr Foto"
               className="p-3 rounded-md border border-gray-300"
             />
             <p className="text-sm self-center">

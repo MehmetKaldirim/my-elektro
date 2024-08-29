@@ -105,7 +105,7 @@ const UnsereArbeit = () => {
 
       {/* Third Row: Button */}
       <div className="py-12 mt-20 bg-white w-full flex justify-center">
-        <Link to="/projekt">
+        <Link to="/project">
           <button className="bg-yellow-400 text-white font-semibold text-lg py-4 px-8 rounded-3xl shadow-lg transition-colors duration-300 hover:bg-white hover:text-yellow-400">
             Alle Projekte anzeigen
           </button>
